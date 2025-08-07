@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS biblioteca;
+USE biblioteca;
+
+CREATE TABLE IF NOT EXISTS categoria(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS livro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(255) NOT NULL,
+    ano_de_publicacao INT NOT NULL,
+    disponivel BOOLEAN NOT NULL,
+    categoria_id INT,
+    FOREIGN KEY (categoria_id) REFERENCES categoria(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
