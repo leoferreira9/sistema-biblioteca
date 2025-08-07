@@ -1,3 +1,10 @@
+# Ignorar arquivos de compilação e configurações de IDE
+.idea/
+out/
+
+# Arquivo de configuração sensível
+src/database/db.properties
+
 # Compiled class file
 *.class
 
