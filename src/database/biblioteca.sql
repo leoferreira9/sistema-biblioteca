@@ -22,3 +22,17 @@ CREATE TABLE IF NOT EXISTS usuario (
     cpf VARCHAR(14) NOT NULL,
     email VARCHAR(120) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS emprestimo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE NULL,
+
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    FOREIGN KEY (livro_id) REFERENCES livro(id)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+);
