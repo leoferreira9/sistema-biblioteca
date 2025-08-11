@@ -79,7 +79,7 @@ public class Livro {
     @Override
     public String toString() {
         return String.format(
-                "ID: %d\nTítulo: %s\nAutor: %s\nAno de publicação: %d\nDisponível: %s\nCategoria: %s",
+                "\nID: %d\nTítulo: %s\nAutor: %s\nAno de publicação: %d\nDisponível: %s\nCategoria: %s",
                 id, titulo, autor, anoDePublicacao, (disponivel ? "Sim" : "Não"), categoria != null ? categoria.getNome() : "Sem categoria"
         );
     }
