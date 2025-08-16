@@ -125,7 +125,7 @@ public class UsuarioDAO {
             if(rows > 0){
                 System.out.println("\n✅ Usuário atualizado com sucesso!");
             } else {
-                System.err.println("\n❌ Nenhum usuário encontrado com esse ID.");
+                System.err.println("❌ Nenhum usuário encontrado com esse ID.\n");
             }
 
         }catch (SQLException e){

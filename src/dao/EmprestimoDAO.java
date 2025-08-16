@@ -103,7 +103,7 @@ public class EmprestimoDAO {
                     }
 
                     if(rs.getDate("data_devolucao") != null){
-                        System.err.println("\n❌ Livro já devolvido.");
+                        System.err.println("❌ Livro já devolvido.\n");
                         connection.rollback();
                         return false;
                     }
@@ -186,6 +186,8 @@ public class EmprestimoDAO {
                 }
 
                 while(rs.next()){
+                    int emprestimoId = rs.getInt("emprestimo_id");
+
                     int usuarioId = rs.getInt("usuario_id");
                     int livroId = rs.getInt("livro_id");
 
@@ -197,7 +199,7 @@ public class EmprestimoDAO {
                             ? rs.getDate("data_devolucao").toLocalDate()
                             : null;
 
-                    emprestimos.add(new Emprestimo(usuario, livro, dataEmprestimo, dataDev));
+                    emprestimos.add(new Emprestimo(emprestimoId, usuario, livro, dataEmprestimo, dataDev));
                 }
             }
             return emprestimos;
@@ -224,7 +226,7 @@ public class EmprestimoDAO {
 
             try (ResultSet rs = stmt.executeQuery()){
                 if(!rs.next()){
-                    System.err.println("\n❌ Empréstimo não encontrado.");
+                    System.err.println("❌ Empréstimo não encontrado.\n");
                     return null;
                 }
 

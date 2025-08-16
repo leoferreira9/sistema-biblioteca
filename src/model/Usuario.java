@@ -57,7 +57,7 @@ public class Usuario {
     @Override
     public String toString() {
         return String.format(
-                "ID: %s\nUsuário: %s\nCPF: %s\nEmail: %s",
+                "\nID: %s\nUsuário: %s\nCPF: %s\nEmail: %s",
                 id, nome, cpf, email
         );
     }
