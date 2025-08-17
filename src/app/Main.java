@@ -32,9 +32,7 @@ public class Main {
             System.out.println("3. Gerenciar Usuários");
             System.out.println("4. Empréstimos");
             System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = lerInt(sc,"Escolha uma opção: ");
 
             switch (opcao){
                 case 1:
@@ -53,7 +51,7 @@ public class Main {
                     System.out.println("Encerrando o sistema...");
                     break;
                 default:
-                    System.out.println("❌ Opção inválida.");
+                    System.err.println("❌ Opção inválida.\n");
             }
         }while(opcao != 0);
     }
@@ -69,52 +67,43 @@ public class Main {
             System.out.println("4. Atualizar categoria");
             System.out.println("5. Deletar categoria");
             System.out.println("0. Voltar ao menu principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = lerInt(sc, "Escolha uma opção: ");
 
             switch (opcao){
                 case 1:
-                    System.out.print("\nInforme o nome da categoria: ");
-                    String nome = sc.nextLine();
+                    String nome = lerString(sc, "\nInforme o nome da categoria: ");
                     categoriaDAO.inserir(new Categoria(nome));
                     break;
                 case 2:
                     List<Categoria> categorias = categoriaDAO.listar();
                     if(categorias.isEmpty()){
-                        System.out.println("❌ Nenhuma categoria cadastradas.");
+                        System.err.println("❌ Nenhuma categoria cadastradas.");
                         break;
                     }
                     System.out.println();
                     categorias.forEach(System.out::println);
                     break;
                 case 3:
-                    System.out.print("\nInforme o ID que deseja consultar: ");
-                    int idConsulta = sc.nextInt();
-                    sc.nextLine();
+                    int idConsulta = lerInt(sc, "\nInforme o ID que deseja consultar: ");
                     Categoria categoria = categoriaDAO.buscarPorId(idConsulta);
                     if(categoria == null){
-                        System.out.println("\n❌ Nenhuma categoria encontrada.");
+                        System.err.println("\n❌ Nenhuma categoria encontrada.");
                         break;
                     }
                     System.out.println("\n" + categoria);
                     break;
                 case 4:
-                    System.out.print("\nInforme o ID da categoria que deseja atualizar: ");
-                    int idAtualizar = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("\nInforme o novo nome da categoria: ");
-                    String novoNome = sc.nextLine();
+                    int idAtualizar = lerInt(sc, "\nInforme o ID da categoria que deseja atualizar: ");
+                    String novoNome = lerString(sc, "\nInforme o novo nome da categoria: ");
                     categoriaDAO.atualizar(new Categoria(idAtualizar, novoNome));
                     break;
                 case 5:
-                    System.out.print("\nInforme o ID da categoria que deseja excluir: ");
-                    categoriaDAO.deletar(sc.nextInt());
+                    categoriaDAO.deletar(lerInt(sc, "\nInforme o ID da categoria que deseja excluir: "));
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("\n❌ Opção inválida!");
+                    System.err.println("\n❌ Opção inválida!");
             }
 
         }while (opcao != 0);
@@ -131,35 +120,26 @@ public class Main {
             System.out.println("4. Atualizar livro");
             System.out.println("5. Deletar livro");
             System.out.println("0. Voltar ao menu principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = lerInt(sc, "Escolha uma opção: ");
 
             switch (opcao){
                 case 1:
-                    System.out.print("\nInforme o Título do livro: ");
-                    String titulo = sc.nextLine();
-                    System.out.print("Informe o nome do Autor: ");
-                    String nomeAutor = sc.nextLine();
-                    System.out.print("Informe o ano de publicação: ");
-                    int ano = sc.nextInt();
+                    String titulo = lerString(sc, "\nInforme o Título do livro: ");
+                    String nomeAutor = lerString(sc, "Informe o nome do Autor: ");
+                    int ano = lerInt(sc, "Informe o ano de publicação: ");
 
                     System.out.print("\nO livro está disponível para empréstimo?");
                     System.out.println("\n1.Sim\n2.Não");
-                    System.out.print("Escolha uma opção: ");
-                    int estaDisponivel = sc.nextInt();
-                    sc.nextLine();
+                    int estaDisponivel = lerInt(sc, "Escolha uma opção: ");
                     boolean disponivel = estaDisponivel == 1;
 
                     System.out.println();
                     categoriaDAO.listar().forEach(System.out::println);
-                    System.out.print("Informe o ID de uma das categorias acima para o livro: ");
-                    int idCategoria = sc.nextInt();
-                    sc.nextLine();
+                    int idCategoria = lerInt(sc, "Informe o ID de uma das categorias acima para o livro: ");
 
                     Categoria categoria = categoriaDAO.buscarPorId(idCategoria);
                     if(categoria == null){
-                        System.out.println("❌ Categoria inválida.");
+                        System.err.println("❌ Categoria inválida.");
                         break;
                     }
 
@@ -168,57 +148,44 @@ public class Main {
                 case 2:
                     List<Livro> livros = livroDAO.listar();
                     if(livros.isEmpty()){
-                        System.out.println("❌ Não há livros cadastrados.");
+                        System.err.println("❌ Não há livros cadastrados.");
                         break;
                     }
                     livros.forEach(System.out::println);
                     break;
                 case 3:
-                    System.out.print("\nInforme o ID do livro que deseja consultar: ");
-                    int idLivro = sc.nextInt();
-                    sc.nextLine();
+                    int idLivro = lerInt(sc, "\nInforme o ID do livro que deseja consultar: ");
                     Livro livro = livroDAO.buscarPorId(idLivro);
                     if(livro == null){
-                        System.out.println("\n❌ Nenhum livro encontrado com o ID informado.");
+                        System.err.println("\n❌ Nenhum livro encontrado com o ID informado.");
                         break;
                     }
                     System.out.println(livro);
                     break;
                 case 4:
-                    System.out.print("\nInforme o ID do livro que deseja atualizar: ");
-                    int idLivroAtualizar = sc.nextInt();
-                    sc.nextLine();
+                    int idLivroAtualizar = lerInt(sc, "\nInforme o ID do livro que deseja atualizar: ");
+                    String tituloNovo = lerString(sc, "Informe o título do livro: ");
+                    String autorNovo = lerString(sc, "Informe o autor do livro: ");
 
-                    System.out.println("Informe o título do livro: ");
-                    String tituloNovo = sc.nextLine();
-
-                    System.out.println("Informe o autor do livro: ");
-                    String autorNovo = sc.nextLine();
-
-                    System.out.println("Informe o ano de publicação do livro: ");
-                    int anoPublicacaoNovo = sc.nextInt();
-                    sc.nextLine();
+                    System.out.println();
+                    int anoPublicacaoNovo = lerInt(sc, "Informe o ano de publicação do livro: ");
 
                     System.out.print("\nO livro está disponível para empréstimo?");
                     System.out.println("\n1.Sim\n2.Não");
-                    System.out.print("Escolha uma opção: ");
-                    int novoDisponivel = sc.nextInt();
-                    sc.nextLine();
+                    int novoDisponivel = lerInt(sc, "Escolha uma opção: ");
 
                     System.out.println();
                     List<Categoria> categorias = categoriaDAO.listar();
                     if(categorias.isEmpty()){
-                        System.out.println("❌ Nenhuma categoria cadastrada.");
+                        System.err.println("❌ Nenhuma categoria cadastrada.");
                         break;
                     }
                     categorias.forEach(System.out::println);
-                    System.out.print("Informe o ID de uma das categorias acima para o livro: ");
-                    int idNovaCategoria = sc.nextInt();
-                    sc.nextLine();
+                    int idNovaCategoria = lerInt(sc, "Informe o ID de uma das categorias acima para o livro: ");
 
                     Categoria novaCategoria = categoriaDAO.buscarPorId(idNovaCategoria);
                     if(novaCategoria == null){
-                        System.out.println("❌ Categoria inválida.");
+                        System.err.println("❌ Categoria inválida.");
                         break;
                     }
 
@@ -226,13 +193,12 @@ public class Main {
                     livroDAO.atualizar(livroAtualizado);
                     break;
                 case 5:
-                    System.out.print("\nInforme o ID do livro que deseja excluir: ");
-                    livroDAO.deletar(sc.nextInt());
+                    livroDAO.deletar(lerInt(sc, "\nInforme o ID do livro que deseja excluir: "));
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("\n❌ Opção inválida!");
+                    System.err.println("\n❌ Opção inválida!");
             }
 
         }while (opcao != 0);
@@ -249,18 +215,13 @@ public class Main {
             System.out.println("4. Atualizar usuário");
             System.out.println("5. Deletar usuário");
             System.out.println("0. Voltar ao menu principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = lerInt(sc, "Escolha uma opção: ");
 
             switch (opcao){
                 case 1:
-                    System.out.print("\nInforme o nome do usuário: ");
-                    String nome = sc.nextLine();
-                    System.out.print("Informe o CPF do usuário: ");
-                    String cpf = sc.nextLine();
-                    System.out.print("Informe o Email do usuário: ");
-                    String email = sc.nextLine();
+                    String nome = lerString(sc, "\nInforme o nome do usuário: ");
+                    String cpf = lerString(sc, "Informe o CPF do usuário: ");
+                    String email = lerString(sc, "Informe o Email do usuário: ");
 
                     Usuario usuario = new Usuario(nome, cpf, email);
                     usuarioDAO.inserir(usuario);
@@ -268,47 +229,39 @@ public class Main {
                 case 2:
                     List<Usuario> usuarios = usuarioDAO.listar();
                     if(usuarios.isEmpty()){
-                        System.out.println("\n❌ Não há usuários cadastrados.");
+                        System.err.println("\n❌ Não há usuários cadastrados.");
                         break;
                     }
                     usuarios.forEach(System.out::println);
                     break;
                 case 3:
-                    System.out.print("\nInforme o ID do usuário que deseja buscar: ");
-                    int id = sc.nextInt();
-                    sc.nextLine();
+                    int id = lerInt(sc, "\nInforme o ID do usuário que deseja buscar: ");
 
                     Usuario usuarioEncontrado = usuarioDAO.buscarPorId(id);
                     if(usuarioEncontrado == null){
-                        System.out.println("\n❌ Usuário não encontrado.");
+                        System.err.println("\n❌ Usuário não encontrado.");
                         break;
                     }
                     System.out.println(usuarioEncontrado);
                     break;
                 case 4:
-                    System.out.print("\nInforme o ID do usuário que deseja atualizar: ");
-                    int idAtualizar = sc.nextInt();
-                    sc.nextLine();
+                    int idAtualizar = lerInt(sc, "\nInforme o ID do usuário que deseja atualizar: ");
 
-                    System.out.print("Informe o nome do usuário: ");
-                    String novoNome = sc.nextLine();
-                    System.out.print("Informe o CPF do usuário: ");
-                    String novoCpf = sc.nextLine();
-                    System.out.print("Informe o Email do usuário: ");
-                    String novoEmail = sc.nextLine();
+                    String novoNome = lerString(sc, "Informe o nome do usuário: ");
+                    String novoCpf = lerString(sc, "Informe o CPF do usuário: ");
+                    String novoEmail = lerString(sc, "Informe o Email do usuário: ");
 
                     Usuario usuarioAtualizado = new Usuario(idAtualizar, novoNome, novoCpf, novoEmail);
                     usuarioDAO.atualizar(usuarioAtualizado);
                     break;
                 case 5:
-                    System.out.print("\nInforme o ID do usuário que deseja excluir: ");
-                    int idExcluir = sc.nextInt();
+                    int idExcluir = lerInt(sc, "\nInforme o ID do usuário que deseja excluir: ");
                     usuarioDAO.deletar(idExcluir);
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("\n❌ Opção inválida!");
+                    System.err.println("\n❌ Opção inválida!");
             }
         }while (opcao != 0);
     }
@@ -323,8 +276,7 @@ public class Main {
             System.out.println("4. Buscar por ID");
             System.out.println("5. Excluir empréstimo (se devolvido)");
             System.out.println("0. Voltar ao menu principal");
-            System.out.print("Escolha uma opção: ");
-            opcao = sc.nextInt();
+            opcao = lerInt(sc, "Escolha uma opção: ");
 
             switch (opcao){
                 case 1:
@@ -332,37 +284,32 @@ public class Main {
                     List<Livro> livros = livroDAO.listar();
 
                     if(usuarios.isEmpty()){
-                        System.out.println("\n❌ Nenhum usuário cadastrado.");
+                        System.err.println("\n❌ Nenhum usuário cadastrado.");
                         break;
                     }
                     if(livros.isEmpty()){
-                        System.out.println("\n❌ Nenhum livro cadastrado.");
+                        System.err.println("\n❌ Nenhum livro cadastrado.");
                         break;
                     }
                     System.out.println();
                     usuarios.forEach(System.out::println);
-                    System.out.print("\nInforme o ID do usuário dono do empréstimo: ");
-                    int idUsuario = sc.nextInt();
-                    sc.nextLine();
+                    int idUsuario = lerInt(sc, "\nInforme o ID do usuário dono do empréstimo: ");
 
                     System.out.println();
                     livros.forEach(System.out::println);
-                    System.out.print("\nInforme o ID do livro que será emprestado: ");
-                    int idLivro = sc.nextInt();
-                    sc.nextLine();
+                    int idLivro = lerInt(sc, "\nInforme o ID do livro que será emprestado: ");
 
                     emprestimoDAO.registrarEmprestimo(idUsuario, idLivro, LocalDate.now());
                     break;
                 case 2:
                     List<Emprestimo> emprestimos = emprestimoDAO.listar();
                     if(emprestimos.isEmpty()){
-                        System.out.println("\n❌ Não há empréstimos cadastrados.");
+                        System.err.println("\n❌ Não há empréstimos cadastrados.");
                         break;
                     }
                     System.out.println();
                     emprestimos.forEach(System.out::println);
-                    System.out.print("\nInforme o ID do empréstimo que deseja devolver: ");
-                    int idDevolucao = sc.nextInt();
+                    int idDevolucao = lerInt(sc, "\nInforme o ID do empréstimo que deseja devolver: ");
                     emprestimoDAO.registrarDevolucao(idDevolucao, LocalDate.now());
                     break;
                 case 3:
@@ -370,23 +317,38 @@ public class Main {
                     emprestimos1.forEach(System.out::println);
                     break;
                 case 4:
-                    System.out.print("\nInforme o ID do empréstimo que deseja consultar: ");
-                    int idConsulta = sc.nextInt();
+                    int idConsulta = lerInt(sc, "\nInforme o ID do empréstimo que deseja consultar: ");
                     Emprestimo emprestimo = emprestimoDAO.buscarPorId(idConsulta);
                     if(emprestimo != null){
                         System.out.println(emprestimo);
                     }
                     break;
                 case 5:
-                    System.out.print("\nInforme o ID do empréstimo que deseja excluir: ");
-                    int idExcluir = sc.nextInt();
+                    int idExcluir = lerInt(sc, "\nInforme o ID do empréstimo que deseja excluir: ");
                     emprestimoDAO.deletar(idExcluir);
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("\n❌ Opção inválida!");
+                    System.err.println("\n❌ Opção inválida!");
             }
         }while(opcao != 0);
+    }
+
+    //Métodos
+    public static int lerInt(Scanner sc, String mensagem){
+        while(true){
+            try {
+                System.out.print(mensagem);
+                return Integer.parseInt(sc.nextLine());
+            }catch (NumberFormatException e){
+                System.out.println("\n❌ Entrada inválida. Digite um número inteiro.");
+            }
+        }
+    }
+
+    public static String lerString(Scanner sc, String mensagem){
+        System.out.print(mensagem);
+        return sc.nextLine();
     }
 }

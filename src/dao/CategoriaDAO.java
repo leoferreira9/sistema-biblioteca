@@ -128,7 +128,7 @@ public class CategoriaDAO {
             if(rows > 0){
                 System.out.println("\n✅ Categoria excluída com sucesso!");
             } else {
-                System.err.println("\n❌ Nenhuma categoria encontrada com esse ID.");
+                System.err.println("❌ Nenhuma categoria encontrada com esse ID.\n");
             }
         }catch (SQLException e){
             System.err.println("\n❌ Erro ao excluir categoria: " + e.getMessage());
