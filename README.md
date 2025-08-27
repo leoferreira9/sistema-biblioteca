@@ -49,5 +49,8 @@ Sistema de gerenciamento de biblioteca desenvolvido em Java, utilizando JDBC par
     db.user=SEU_USUARIO
     db.password=SUA_SENHA
   ```
-4. Execute a classe **Main** (pacote app).
+
+4. Adicione o Driver JDBC do MySQL (**mysql-connector**)
+  
+5. Execute a classe **Main** (pacote app).
 
